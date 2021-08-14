@@ -1,0 +1,154 @@
+services:
+  osservability-aggregator:
+    image: osservability-aggregator
+    build:
+      context: .
+      dockerfile: src/Aggregator/Osservability.Aggregator/Dockerfile
+
+  osservability-aggregator-dapr:
+    container_name: osservability-aggregator-dapr
+    image: "daprio/daprd:1.3.0"
+    network_mode: "service:osservability-aggregator"
+    depends_on:
+      - osservability-aggregator
+    command: ["./daprd",
+      "-app-id", "osservability-aggregator",
+      "-app-port", "80",
+      "-components-path", "/components",
+      "-config", "/configuration/config.yaml"
+      ]
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
+
+  osservability-readerprimary:
+    container_name: readerprimary
+    image: osservability-readerprimary
+    build:
+      context: .
+      dockerfile: src/Services/Osservability.ReaderPrimary/Dockerfile
+
+  osservability-readerprimary-dapr:
+    container_name: osservability-readerprimary-dapr
+    image: "daprio/daprd:1.3.0"
+    network_mode: "service:osservability-readerprimary"
+    depends_on:
+      - osservability-readerprimary
+    command: ["./daprd",
+      "-app-id", "osservability-readerprimary",
+      "-app-port", "80",
+      "-components-path", "/components",
+      "-config", "/configuration/config.yaml"
+      ]
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
+
+  osservability-readersecondary:
+    container_name: readersecondary
+    image: osservability-readersecondary
+    build:
+      context: .
+      dockerfile: src/Services/Osservability.ReaderSecondary/Dockerfile
+      
+  osservability-readersecondary-dapr:
+    container_name: osservability-readersecondary-dapr
+    image: "daprio/daprd:1.3.0"
+    network_mode: "service:osservability-readersecondary"
+    depends_on:
+      - osservability-readersecondary
+    command: ["./daprd",
+      "-app-id", "osservability-readersecondary",
+      "-app-port", "80",
+      "-components-path", "/components",
+      "-config", "/configuration/config.yaml"
+      ]
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
+
+  osservability-writer:
+    container_name: writer
+    image: osservability/writer
+    build:
+      context: .
+      dockerfile: src/Services/Osservability.Writer/Dockerfile
+
+  osservability-writer-dapr:
+    container_name: osservability-writer-dapr
+    image: "daprio/daprd:1.3.0"
+    network_mode: "service:osservability-writer"
+    depends_on:
+      - osservability-writer
+    command: ["./daprd",
+      "-app-id", "osservability-writer",
+      "-app-port", "80",
+      "-components-path", "/components",
+      "-config", "/configuration/config.yaml"
+      ]
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
+
+  envoy:
+    container_name: envoy
+    image: envoyproxy/envoy-alpine:v1.18-latest
+    volumes:
+        - ./src/APIGateways:/etc/envoy
+    ports:
+        - "10000:10000"
+        - "9901:9901"
+
+  envoy-dapr:
+    container_name: envoy-dapr
+    image: "daprio/daprd:1.0.0"
+    network_mode: "service:envoy"
+    depends_on:
+        - envoy
+    command: ["./daprd",
+            "-app-id", "envoy",
+            "-app-port", "10000",
+            "-config", "/configuration/config.yaml",
+            "-components-path", "/components"
+            ]
+    volumes:
+        - "./dapr/components/:/components"
+        - "./dapr/configuration/:/configuration"
+    
+  sqlserver:
+    container_name: sqlserver
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+        - 1433:1433
+    volumes:
+        - ./storage/sqldata:/var/opt/sqlserver/data
+        - ./storage/sqllog:/var/opt/sqlserver/log
+    environment:
+        SA_PASSWORD: "DaprSample12@="
+        ACCEPT_EULA: "Y"
+        MSSQL_PID: "Developer"
+
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin-slim
+    ports:
+        - "9411:9411"
+  
+  jeager:
+    container_name: jeager
+    image: jaegertracing/all-in-one:1.23
+    ports:
+        - 14268:14268
+        - 16686:16686
+
+  otel-collector:
+    container_name: otel-collector
+    image: otel/opentelemetry-collector-contrib-dev:latest
+    command: [
+        "/otelcontribcol",
+        "--config=/etc/otel-collector.yaml"
+    ]
+    volumes:
+      - "./otel/otel-collector.yaml:/etc/otel-collector.yaml"
+    ports:
+      - "9411"

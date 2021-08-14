@@ -1,0 +1,72 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31410.414
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Osservability.ReaderPrimary", "src\Services\Osservability.ReaderPrimary\Osservability.ReaderPrimary.csproj", "{5C8106F1-92A1-45D0-B787-6B22587FCD8F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Osservability.ReaderSecondary", "src\Services\Osservability.ReaderSecondary\Osservability.ReaderSecondary.csproj", "{27F86296-0800-48CD-A77C-43104840A2DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Osservability.Aggregator", "src\Aggregator\Osservability.Aggregator\Osservability.Aggregator.csproj", "{B34DA5A3-BFAE-4FDC-BF3B-E23481C9AC4E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Osservability.Writer", "src\Services\Osservability.Writer\Osservability.Writer.csproj", "{2F0C4394-F7A1-469D-99CA-7D356181341E}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5179B17B-A4F4-4F96-8F2A-B5C9BEB5A82F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIGateways", "APIGateways", "{C8618F7C-327D-4C96-9DD3-86400AEE4DBA}"
+	ProjectSection(SolutionItems) = preProject
+		src\APIGateways\envoy.yaml = src\APIGateways\envoy.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dapr", "dapr", "{F36183C8-7982-4F34-A891-27B02C00BF09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "otel", "otel", "{EF546C9E-CF9D-4038-9E00-D6B9123FCEC4}"
+	ProjectSection(SolutionItems) = preProject
+		otel\otel-collector.yaml = otel\otel-collector.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configuration", "configuration", "{B9EF7DE9-1AE5-43A2-AB99-4820C206F573}"
+	ProjectSection(SolutionItems) = preProject
+		dapr\configuration\config.yaml = dapr\configuration\config.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", "{96C187C3-62C1-4DD3-9544-A0616EAE2E7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C8106F1-92A1-45D0-B787-6B22587FCD8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C8106F1-92A1-45D0-B787-6B22587FCD8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C8106F1-92A1-45D0-B787-6B22587FCD8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C8106F1-92A1-45D0-B787-6B22587FCD8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27F86296-0800-48CD-A77C-43104840A2DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27F86296-0800-48CD-A77C-43104840A2DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27F86296-0800-48CD-A77C-43104840A2DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27F86296-0800-48CD-A77C-43104840A2DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B34DA5A3-BFAE-4FDC-BF3B-E23481C9AC4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B34DA5A3-BFAE-4FDC-BF3B-E23481C9AC4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B34DA5A3-BFAE-4FDC-BF3B-E23481C9AC4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B34DA5A3-BFAE-4FDC-BF3B-E23481C9AC4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F0C4394-F7A1-469D-99CA-7D356181341E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F0C4394-F7A1-469D-99CA-7D356181341E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F0C4394-F7A1-469D-99CA-7D356181341E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F0C4394-F7A1-469D-99CA-7D356181341E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5179B17B-A4F4-4F96-8F2A-B5C9BEB5A82F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5179B17B-A4F4-4F96-8F2A-B5C9BEB5A82F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5179B17B-A4F4-4F96-8F2A-B5C9BEB5A82F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5179B17B-A4F4-4F96-8F2A-B5C9BEB5A82F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B9EF7DE9-1AE5-43A2-AB99-4820C206F573} = {F36183C8-7982-4F34-A891-27B02C00BF09}
+		{96C187C3-62C1-4DD3-9544-A0616EAE2E7E} = {F36183C8-7982-4F34-A891-27B02C00BF09}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {182571F8-5C53-4816-AB41-8DCD785AFF1D}
+	EndGlobalSection
+EndGlobal

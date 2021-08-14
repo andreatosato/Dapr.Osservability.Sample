@@ -1,0 +1,27 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "osservability-aggregator",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "envoy": "StartWithoutDebugging",
+        "envoy-dapr": "StartWithoutDebugging",
+        "jeager": "StartWithoutDebugging",
+        "osservability-aggregator": "StartDebugging",
+        "osservability-aggregator-dapr": "StartWithoutDebugging",
+        "osservability-readerprimary": "StartDebugging",
+        "osservability-readerprimary-dapr": "StartWithoutDebugging",
+        "osservability-readersecondary": "StartDebugging",
+        "osservability-readersecondary-dapr": "StartWithoutDebugging",
+        "osservability-writer": "StartDebugging",
+        "osservability-writer-dapr": "StartWithoutDebugging",
+        "otel-collector": "StartWithoutDebugging",
+        "sqlserver": "StartWithoutDebugging",
+        "zipkin": "StartWithoutDebugging"
+      }
+    }
+  }
+}
