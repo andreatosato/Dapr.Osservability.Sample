@@ -44,6 +44,17 @@ namespace Osservability.ReaderPrimary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Fruits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "We pick Fuji Melinda from mid-October onwards, when all the other apples have been picked and the highest peaks of the Trentino valleys are already covered with snow. Staying so long on the plant, it accumulates sugars: a real pleasure for the palate.",
+                            ExpirationDate = new DateTime(2021, 8, 24, 14, 33, 33, 691, DateTimeKind.Utc).AddTicks(2671),
+                            Name = "Mela Fuji",
+                            Quantity = 100,
+                            Temperature = 10m
+                        });
                 });
 #pragma warning restore 612, 618
         }

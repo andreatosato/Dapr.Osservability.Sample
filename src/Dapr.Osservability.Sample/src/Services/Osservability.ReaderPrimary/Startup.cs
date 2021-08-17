@@ -26,7 +26,7 @@ namespace Osservability.ReaderPrimary
             if (!string.IsNullOrEmpty(connectionString))
             {
                 services.AddDbContext<FruitContext>(options =>
-                    options.UseSqlServer(Environment.GetEnvironmentVariable("DefaultConnection")));
+                    options.UseSqlServer(connectionString));
             }
 
             services.AddControllers();

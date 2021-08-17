@@ -23,6 +23,11 @@ namespace Osservability.ReaderPrimary.Migrations
                 {
                     table.PrimaryKey("PK_Fruits", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Fruits",
+                columns: new[] { "Id", "Description", "ExpirationDate", "Name", "Quantity", "Temperature" },
+                values: new object[] { 1, "We pick Fuji Melinda from mid-October onwards, when all the other apples have been picked and the highest peaks of the Trentino valleys are already covered with snow. Staying so long on the plant, it accumulates sugars: a real pleasure for the palate.", new DateTime(2021, 8, 24, 14, 33, 33, 691, DateTimeKind.Utc).AddTicks(2671), "Mela Fuji", 100, 10m });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

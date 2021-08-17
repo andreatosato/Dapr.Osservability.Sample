@@ -5,6 +5,16 @@ services:
     ports:
       - "80"
 
-  osser:
+  osservability-readerprimary:
     environment:
-    - DefaultConnection=Server=sqlserver;Database=FruitDB;User Id=sa;Password=DaprSample12@=;
+        - ASPNETCORE_ENVIRONMENT=Development
+        - DefaultConnection=Server=sqlserver;Database=FruitDB;User Id=sa;Password=DaprSample12@=;
+    ports:
+      - "80"
+
+  osservability-readersecondary:
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - DefaultConnection=Server=sqlserver;Database=VegetableDB;User Id=sa;Password=DaprSample12@=;
+    ports:
+      - "80"
