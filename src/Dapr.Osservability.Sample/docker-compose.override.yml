@@ -4,3 +4,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
+
+  osser:
+    environment:
+    - DefaultConnection=Server=sqlserver;Database=FruitDB;User Id=sa;Password=DaprSample12@=;

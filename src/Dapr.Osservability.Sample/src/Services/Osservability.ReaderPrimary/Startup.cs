@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Osservability.ReaderPrimary.Data;
+using System;
 
 namespace Osservability.ReaderPrimary
 {
@@ -19,6 +22,13 @@ namespace Osservability.ReaderPrimary
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                services.AddDbContext<FruitContext>(options =>
+                    options.UseSqlServer(Environment.GetEnvironmentVariable("DefaultConnection")));
+            }
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
