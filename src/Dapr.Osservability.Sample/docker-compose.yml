@@ -121,8 +121,8 @@ services:
     ports:
         - 1433:1433
     volumes:
-        - ./storage/sqldata:/var/opt/sqlserver/data
-        - ./storage/sqllog:/var/opt/sqlserver/log
+        - ./storage/sqldata:/var/opt/mssql/data
+        - ./storage/sqllog:/var/opt/mssql/log
     environment:
         SA_PASSWORD: "DaprSample12@="
         ACCEPT_EULA: "Y"

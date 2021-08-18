@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Osservability.Aggregator.Controllers
@@ -24,16 +25,17 @@ namespace Osservability.Aggregator.Controllers
         public async Task<IActionResult> GetAsync()
         {
             _logger.LogInformation("Calling random data");
-            var randomizeResponse = Convert.ToBoolean(new Random().Next(0, 1));
+            var random = new Random().Next(0, 100);
+            var randomizeResponse = random <= 50;
             _logger.LogInformation($"Random: {randomizeResponse}");
             if (randomizeResponse)
             {
-                var fruits = await client.InvokeMethodAsync<List<FruitVegetable>>("appId", "methodName");
+                var fruits = await client.InvokeMethodAsync<List<FruitVegetable>>(HttpMethod.Get, "osservability-readerprimary", "Fruits");
                 return Ok(fruits);
             }
             else
             {
-                var vegetables = await client.InvokeMethodAsync<List<FruitVegetable>>("appId", "methodName");
+                var vegetables = await client.InvokeMethodAsync<List<FruitVegetable>>(HttpMethod.Get, "osservability-readersecondary", "Vegetables");
                 return Ok(vegetables);
             }
         }
