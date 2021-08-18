@@ -44,7 +44,7 @@ namespace Osservability.Aggregator.Controllers
         public async Task<IActionResult> PostAsync(FruitVegetable fruitVegetable)
         {
             _logger.LogInformation("Insert random data");
-            await client.InvokeMethodAsync("appId", "methodName", fruitVegetable);
+            await client.InvokeMethodAsync("osservability-writer", "FruitVegetable", fruitVegetable);
 
             return Ok();
         }

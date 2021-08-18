@@ -18,3 +18,11 @@ services:
         - DefaultConnection=Server=sqlserver;Database=VegetableDB;User Id=sa;Password=DaprSample12@=;
     ports:
       - "80"
+
+  osservability-writer:
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - FruitConnection=Server=sqlserver;Database=FruitDB;User Id=sa;Password=DaprSample12@=;
+        - VegetableConnection=Server=sqlserver;Database=VegetableDB;User Id=sa;Password=DaprSample12@=;
+    ports:
+      - "80"

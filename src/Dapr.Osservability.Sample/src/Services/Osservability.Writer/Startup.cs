@@ -1,15 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Osservability.ReaderPrimary.Data;
+using Osservability.ReaderSecondary.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Osservability.Writer
 {
@@ -25,6 +23,19 @@ namespace Osservability.Writer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionStringVegetable = Environment.GetEnvironmentVariable("VegetableConnection");
+            if (!string.IsNullOrEmpty(connectionStringVegetable))
+            {
+                services.AddDbContext<VegetableContext>(options =>
+                    options.UseSqlServer(connectionStringVegetable));
+            }
+
+            var connectionStringFruit = Environment.GetEnvironmentVariable("FruitConnection");
+            if (!string.IsNullOrEmpty(connectionStringFruit))
+            {
+                services.AddDbContext<FruitContext>(options =>
+                    options.UseSqlServer(connectionStringFruit));
+            }
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
