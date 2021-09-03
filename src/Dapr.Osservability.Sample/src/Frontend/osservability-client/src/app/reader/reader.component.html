@@ -1,0 +1,35 @@
+<h3>Reader Component</h3>
+
+<div class="row">
+    <div class="col">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Temperature</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor= "let row of this.FruitVegetables; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{row.name}}</td>
+                    <td>{{row.quantity}}</td>
+                    <td>{{row.temperature}}</td>
+                    <td>{{row.description}}</td>
+                    <td>{{row.type}}</td>
+                    <!-- <td>{{row.expirationDate | date}}</td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <button class="btn btn-primary" (click)="refreshData()">Refresh</button>
+    </div>
+</div>
