@@ -19,8 +19,8 @@ namespace Osservability.ReaderSecondary.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var fruits = await db.Vegetables.ToListAsync();
-            return Ok(fruits);
+            var vegetables = await db.Vegetables.ToListAsync();
+            return Ok(vegetables);
         }
     }
 }

@@ -20,6 +20,21 @@ namespace Osservability.Aggregator
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddDapr();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder
+                        .SetIsOriginAllowed((host) => true)
+                        //.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+
+                });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Osservability.Aggregator", Version = "v1" });
@@ -35,6 +50,8 @@ namespace Osservability.Aggregator
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Osservability.Aggregator v1"));
             }
+
+            app.UseCors();
 
             app.UseRouting();
 

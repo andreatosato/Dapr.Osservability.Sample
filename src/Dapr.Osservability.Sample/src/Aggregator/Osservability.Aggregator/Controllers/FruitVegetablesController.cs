@@ -31,11 +31,19 @@ namespace Osservability.Aggregator.Controllers
             if (randomizeResponse)
             {
                 var fruits = await client.InvokeMethodAsync<List<FruitVegetable>>(HttpMethod.Get, "osservability-readerprimary", "Fruits");
+                for (int i = 0; i < fruits.Count; i++)
+                {
+                    fruits[i].Type = FruitVegetableType.Fruit;
+                }
                 return Ok(fruits);
             }
             else
             {
                 var vegetables = await client.InvokeMethodAsync<List<FruitVegetable>>(HttpMethod.Get, "osservability-readersecondary", "Vegetables");
+                for (int i = 0; i < vegetables.Count; i++)
+                {
+                    vegetables[i].Type = FruitVegetableType.Vegetable;
+                }
                 return Ok(vegetables);
             }
         }

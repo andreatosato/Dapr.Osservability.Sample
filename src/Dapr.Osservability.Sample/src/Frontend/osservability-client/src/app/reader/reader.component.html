@@ -10,6 +10,7 @@
                     <th>Quantity</th>
                     <th>Temperature</th>
                     <th>Description</th>
+                    <th>Expiration Date</th>
                     <th>Type</th>
                 </tr>
             </thead>
@@ -20,8 +21,11 @@
                     <td>{{row.quantity}}</td>
                     <td>{{row.temperature}}</td>
                     <td>{{row.description}}</td>
-                    <td>{{row.type}}</td>
-                    <!-- <td>{{row.expirationDate | date}}</td> -->
+                    <td>{{row.expirationDate | date}}</td>
+                    <td [ngSwitch]="row.type">
+                        <span *ngSwitchCase="0">Fruit</span>
+                        <span *ngSwitchCase="1"> Vegetable</span>
+                    </td>
                 </tr>
             </tbody>
         </table>

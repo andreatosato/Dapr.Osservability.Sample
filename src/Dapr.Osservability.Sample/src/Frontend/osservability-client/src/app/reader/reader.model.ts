@@ -8,6 +8,6 @@ export class FruitVegetables{
 }
 
 export enum FruitVegetableType {
-    Fruit,
-    Vegetable
+    Fruit = '0',
+    Vegetable = '1'
 }
