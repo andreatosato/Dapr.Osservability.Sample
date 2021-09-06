@@ -132,7 +132,7 @@ services:
     container_name: zipkin
     image: openzipkin/zipkin-slim
     ports:
-        - "9411:9411"
+        - "9412:9411"
   
   jeager:
     container_name: jeager
@@ -145,10 +145,19 @@ services:
     container_name: otel-collector
     image: otel/opentelemetry-collector-contrib-dev:latest
     command: [
-        "/otelcontribcol",
-        "--config=/etc/otel-collector.yaml"
+        #"/otelcontribcol",
+        "--config=/etc/otel-collector.yaml",
+        "--log-level=DEBUG"
     ]
     volumes:
       - "./otel/otel-collector.yaml:/etc/otel-collector.yaml"
     ports:
-      - "9411"
+      # Default endpoint for Zipkin receiver.
+      - 9411:9411 
+      # Default endpoint for OpenTelemetry receiver.
+      - 4317:4317 
+      - 55681:55681
+      # Default endpoint for ZPages.
+      - 55679:55679
+      # Default endpoint for querying metrics.
+      - 8888:8888  

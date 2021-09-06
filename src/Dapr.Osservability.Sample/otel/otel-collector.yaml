@@ -1,6 +1,10 @@
 receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "0.0.0.0:55681"
   zipkin:
-    endpoint: 0.0.0.0:9411
+    endpoint: 0.0.0.0:9412
 extensions:
   health_check:
   pprof:
@@ -8,20 +12,43 @@ extensions:
   zpages:
     endpoint: :55679
 exporters:
+  otlp:
+    endpoint: otel-collector:4317
   logging:
     loglevel: debug
-  # azuremonitor:
-  #   endpoint: "https://dc.services.visualstudio.com/v2/track"
-  #   instrumentation_key: "your-key"
-  #   maxbatchsize: 100
-  #   # maxbatchinterval is the maximum time to wait before calling the configured endpoint.
-  #   maxbatchinterval: 10s
+
   jaeger_thrift:
     url: "http://jeager:14268/api/traces"
+
+  newrelic:
+    
+    timeout: 30s
+    traces:
+      host_override: trace-api.eu.newrelic.com
+      timeout: 20s
+    metrics:
+      host_override: metric-api.eu.newrelic.com
+    logs:
+      host_override: log-api.eu.newrelic.com
+  zipkin:
+    endpoint: "http://localhost:9412/api/v2/spans"
+
+processors:
+  batch:
+
     
 service:
   extensions: [pprof, zpages, health_check]
   pipelines:
     traces:
-      receivers: [zipkin]
-      exporters: [jaeger_thrift]
+      receivers: [otlp, zipkin]
+      processors: [batch]
+      exporters: [newrelic,otlp, zipkin]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [newrelic, otlp]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]

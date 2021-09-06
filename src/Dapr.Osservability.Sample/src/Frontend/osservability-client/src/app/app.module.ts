@@ -9,6 +9,9 @@ import { ReaderComponent } from './reader/reader.component';
 import { WriterComponent } from './writer/writer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { OpenTelemetryInterceptorModule, OtelColExporterModule, CompositePropagatorModule, OtelWebTracerModule } from '@jufab/opentelemetry-angular-interceptor';
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +22,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    // Interceptor
+    OpenTelemetryInterceptorModule.forRoot(environment.opentelemetryConfig),
+    OtelColExporterModule,
+    CompositePropagatorModule,
+    // OtelWebTracerModule to configure instrumentation component.
+    OtelWebTracerModule.forRoot(environment.opentelemetryConfig),
     FormsModule,
     ReactiveFormsModule,
     NgbModule
